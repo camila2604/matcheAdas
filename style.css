@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;  
+}
+.container{
+    height:502px;
+    width:502px;
+    position:relative;
+    background-color:rgb(194, 187, 187);
+}
+/* .cell{
+    transition: background-color 0.4s, top 0.4s, left 0.4s, bottom 0.4s, right 0.4s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    border-radius: 5px;
+    border: 1px solid red;
+}
+.cell--selected{
+    background-color:red;
+} */
