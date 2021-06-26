@@ -5,12 +5,59 @@
     padding: 0;
     box-sizing: border-box;  
 }
+body{
+    font-family: 'Pacifico', cursive;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.matcheAdas{
+    max-width: 600px;
+    width: 600px;
+    border: 3px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.row{
+    width: 504px;
+    margin:15px ;
+    border:1px solid black;
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+}
+/* .alignLeft{
+    
+}
+.alignRigth{
+    
+} */
+
 .container{
-    height:502px;
-    width:502px;
+    height:504px;
+    width:504px;
     position:relative;
     background-color:rgb(194, 187, 187);
 }
+.emoji{
+    width: 100%;
+}
+
+/* .divButton{
+
+}
+.botonAJugar{
+
+} */
+
+
+
+
+
+
 /* .cell{
     transition: background-color 0.4s, top 0.4s, left 0.4s, bottom 0.4s, right 0.4s, transform 0.2s;
     display: flex;
