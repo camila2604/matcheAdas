@@ -50,20 +50,8 @@ container.style.position = 'relative';
 generarMatriz();
 
 /**
- * 
- * 
+ *  ALERTS
  **/
-
-
-
-/**
- * 
- * 
- * 
- **/
-
-
-
 
 const popUpBienvenida = () =>{
     swal({
@@ -76,26 +64,55 @@ const popUpBienvenida = () =>{
 }
 
 const popUpNiveles = () =>{
-    swal({
-        title: "Nuevo juego",
-        text: "Selecciona una dificultad.\n",
-        button: {
-            text: "Fácil", 
+
+    swal({title:"Nuevo juego", 
+        text:"Selecciona una dificultad.",
+        buttons: {
+        cancel: "Facil",
+        catch: {
+        text: "Normal",
     },
+        defeat: "Difícil",
+    },
+    })
+}
+popUpBienvenida();
+
+
+
+// swal({
+//     title: "Nuevo juego",
+//     text: "Selecciona una dificultad.\n",
+// //     button: {
+// //         text: "Fácil",
+// // },
+// // buttons: ["Stop", "Do it!"],
+// });
+
+/**
+ * Reloj
+ **/
+
+const alertJuegoTerminado = ()=>{ 
+    swal({
+        title: "¡Juego terminado!",
+        text: "Puntaje final:\n",
+    buttons: ["Nuevo juego", "Reiniciar"],
     });
 }
 
-popUpBienvenida();
 
-//   swal("Are you sure you want to do this?", {
-    
-    //buttons: ["Oh noez!", "Aww yiss!","algo"],
-// });
+const tiempoDeJuego = 0.25;
+let seg = 30; 
 
-
-
-
-
-// const mensajeBienvenida = ()=>{
-//     alert = ("")
-// }
+const mostrarSegundos = () => {
+    console.log("comienzo")
+    if (seg >= 0){
+        console.log(seg--);
+        
+    }else {
+        clearInterval(id);
+        alertJuegoTerminado();
+    }
+}
+const id = setInterval(mostrarSegundos, 1000);
