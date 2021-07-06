@@ -116,3 +116,56 @@ const mostrarSegundos = () => {
     }
 }
 const id = setInterval(mostrarSegundos, 1000);
+
+const popUpNiveles = () =>{
+
+    swal({
+        title: "Nuevo juego",
+        text:"Selecciona una dificultad",
+        buttons: {
+            facil: {
+                text: "Facil",
+                value: "facil",
+            },
+            normal: {
+                text: "Normal",
+                value: "normal",
+            },
+            dificil: {
+                text: "Dificil",
+                value: "dificil",
+            },
+        },
+    }).then((value) => {
+        switch(value){
+            case "facil":
+                const tamCelda =  56;
+                const tamMatriz = 9; 
+                generarMatriz();
+                break;
+//             case "normal":
+//                  const tamCelda =  63;
+//                  const tamMatriz = 8; 
+//                  generarMatriz();
+//                  break;
+// //             case "dificl":
+// //                 const tamCelda =  72;
+// //                 const tamMatriz = 7; 
+// //                 generarMatriz();
+// //                 break;
+    }
+})
+}
+
+    //     title:"Nuevo juego", 
+    //     text:"Selecciona una dificultad.",
+    //     buttons: {
+    //     cancel: "Facil",
+    //     catch: {
+    //     text: "Normal",
+    // },
+    //     defeat: "Difícil",
+    // },
+    
+
+popUpBienvenida();
