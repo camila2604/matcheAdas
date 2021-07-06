@@ -38,7 +38,11 @@ const generarMatriz = () =>{
         container.appendChild(celda);
     
         celda.innerHTML = emojiRandom()
-        celda.addEventListener('click',celdaClick)
+
+        let seleccionarCeldaClick = (e) =>{
+            celda.classList.add('celda-seleccionada')
+          }
+          celda.addEventListener('click', seleccionarCeldaClick);
 
     }
     
@@ -48,6 +52,39 @@ const generarMatriz = () =>{
 container.style.position = 'relative';
 }
 generarMatriz();
+
+/**
+ * Identificar las celdas clickeadas
+ **/
+
+// let previusClickCell = null;
+
+// const clickCell = (e) =>{
+// const nextClickCell = e.target;
+
+//     if(previusClickCell == nextClickCell){
+//         console.log("same");
+//         previusClickCell.classList.remove('celda-seleccionada');
+//         previusClickCell = null;
+//     } else if(previusClickCell){
+//         console.log("new");
+
+//         const diffX = previusClickCell.dataset.row - nextClickCell.dataset.row;
+//         const diffY = previusClickCell.dataset.column - nextClickCell.dataset.column;
+        
+//         if((diffX >= -1 && diffX <= 1) && (diffY >= -1 && diffY <= 1)){
+//             nextClickCell.classList.add('celda-seleccionada');
+
+//             const columnPrevius = previusClickCell.dataset.column;
+//             const columnNext = nextClickCell.dataset.column;
+//             const rowPrevius = previusClickCell.dataset.row
+//         }
+
+//     }
+
+// }
+
+// clickCell();
 
 /**
  *  ALERTS
@@ -77,6 +114,7 @@ const popUpNiveles = () =>{
     })
 }
 popUpBienvenida();
+
 
 
 
@@ -116,3 +154,4 @@ const mostrarSegundos = () => {
     }
 }
 const id = setInterval(mostrarSegundos, 1000);
+
