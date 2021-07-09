@@ -67,27 +67,17 @@ h1{
     border-radius: 5px;
 }
 
-
-/* .alignLeft{
-    
-}
-.alignRigth{
-    
-} */
-/* .divButton{
-}
-.botonAJugar{
-} */
-
-/* .cell{
-    transition: background-color 0.4s, top 0.4s, left 0.4s, bottom 0.4s, right 0.4s, transform 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
+.celda-seleccionada{
+    background-color: rgb(94, 94, 204);
+    border: 2px solid white;
     border-radius: 5px;
-    border: 1px solid red;
 }
-.cell--selected{
-    background-color:red;
+
+/* 
+button{
+    background-color:rgb(255, 82, 111);
+}
+.buttons:hover{
+    transition-duration:0.1s;
+    background-color:rgb(150, 52, 69);
 } */
