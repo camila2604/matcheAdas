@@ -21,6 +21,7 @@ let viejoClick = null;
 
 let celdaClick = (e) => {
     nuevoClick = e.target;
+    console.log(e.target.dataset);
     if(!viejoClick){
         nuevoClick.classList.add('celda-seleccionada');
         viejoClick = nuevoClick
@@ -31,15 +32,43 @@ let celdaClick = (e) => {
         }//else if (){ 
             //hay que hacer una resta para saber las posiciones 
         //}
-            // NO ME FUNCIONO JA
-            // else if(viejoClick !== nuevoClick){
+            
+            // else if (viejoClick !== nuevoClick){
             // nuevoClick.classList.add('celda-seleccionada');
+            // viejoClick.classList.remove('celda-seleccionada');
             // viejoClick = null;
+            // nuevoClick = null;
             // }
     }
     
     
 } 
+//Adyacente
+
+const esAdyacente = (celda1, celda2) =>{
+    if (celda1){
+        let celda1X = celda1.dataset.x; 
+        let celda1Y = celda1.dataset.y;
+
+        let celda2X = celda2.dataset.x;
+        let celda2Y = celda2.dataset.Y;
+
+        if (celda1X === celda2X){
+            if (celda1Y === celda2Y +1 || celda1Y === celda2Y-1){
+                return true;
+            }
+        } 
+        
+        if(celda1Y === celda2Y){
+            if (celda1X === celda2X +1 || celda1X === celda2X-1){
+                return true;
+            }
+
+        }
+    } 
+return false
+}
+
 //x1 = 1 x2=1 xresultante = x1-x2 = 0
 //y1= 0 y2 = 1 y resultante = y1-y2 = -1
 
@@ -63,8 +92,8 @@ const generarMatriz = () =>{
         //celda.style.border = '1px solid #000';
         celda.style.padding = '8px';
 
-        celda.dataset.x = j;
-        celda.dataset.y = i;
+        celda.dataset.x = i;
+        celda.dataset.y = j;
 
         posicionY = posicionY + gridSize / tamMatriz;
 
@@ -142,27 +171,27 @@ const popUpBienvenida = () =>{
 ---------- RELOJ ----------
 */
 
-const alertJuegoTerminado = ()=>{ 
-    swal({
-        title: "¡Juego terminado!",
-        text: "Puntaje final:\n",
-    buttons: ["Nuevo juego", "Reiniciar"],
-    });
-}
-const tiempoDeJuego = 0.25;
-let seg = 30; 
+// const alertJuegoTerminado = ()=>{ 
+//     swal({
+//         title: "¡Juego terminado!",
+//         text: "Puntaje final:\n",
+//     buttons: ["Nuevo juego", "Reiniciar"],
+//     });
+// }
+// const tiempoDeJuego = 0.25;
+// let seg = 30; 
 
-const mostrarSegundos = () => {
-    console.log("comienzo")
-    if (seg >= 0){
-        console.log(seg--);
+// const mostrarSegundos = () => {
+//     console.log("comienzo")
+//     if (seg >= 0){
+//         console.log(seg--);
         
-    }else {
-        clearInterval(id);
-        alertJuegoTerminado();
-    }
-}
-const id = setInterval(mostrarSegundos, 1000);
+//     }else {
+//         clearInterval(id);
+//         alertJuegoTerminado();
+//     }
+// }
+// const id = setInterval(mostrarSegundos, 1000);
 
 
 /*
