@@ -10,7 +10,6 @@ const emojiRandom = () =>{
     const indexEmoji = Math.round(Math.random() * (emoji.length-1))
         return emoji[indexEmoji];
 }
-console.log(emojiRandom());
 
 
 /*
@@ -21,56 +20,54 @@ let viejoClick = null;
 
 let celdaClick = (e) => {
     nuevoClick = e.target;
-    console.log(e.target.dataset);
+    //console.log(e.target.dataset);
+
     if(!viejoClick){
         nuevoClick.classList.add('celda-seleccionada');
         viejoClick = nuevoClick
     }else {
+        
         if(viejoClick == nuevoClick){
             nuevoClick.classList.remove('celda-seleccionada');
             viejoClick = null;
-        }//else if (){ 
-            //hay que hacer una resta para saber las posiciones 
-        //}
-            
-            // else if (viejoClick !== nuevoClick){
-            // nuevoClick.classList.add('celda-seleccionada');
-            // viejoClick.classList.remove('celda-seleccionada');
-            // viejoClick = null;
-            // nuevoClick = null;
-            // }
+            }else if (esAdyacente(viejoClick, nuevoClick)){
+                console.log("son adyacentes");
+            }else{
+            nuevoClick.classList.add('celda-seleccionada');
+            viejoClick.classList.remove('celda-seleccionada');
+            viejoClick = nuevoClick;
+            }
     }
-    
-    
 } 
+
 //Adyacente
 
 const esAdyacente = (celda1, celda2) =>{
-    if (celda1){
-        let celda1X = celda1.dataset.x; 
-        let celda1Y = celda1.dataset.y;
+    
+    let celda1X = Number(celda1.dataset.x); 
+    let celda1Y = Number(celda1.dataset.y);
 
-        let celda2X = celda2.dataset.x;
-        let celda2Y = celda2.dataset.Y;
+    let celda2X = Number(celda2.dataset.x);
+    let celda2Y = Number(celda2.dataset.y);
 
-        if (celda1X === celda2X){
-            if (celda1Y === celda2Y +1 || celda1Y === celda2Y-1){
-                return true;
-            }
-        } 
-        
-        if(celda1Y === celda2Y){
-            if (celda1X === celda2X +1 || celda1X === celda2X-1){
-                return true;
-            }
-
+    if (celda1X === celda2X){
+        if ((celda1Y === celda2Y +1) || (celda1Y === celda2Y-1)){
+            return true;
         }
     } 
-return false
-}
 
-//x1 = 1 x2=1 xresultante = x1-x2 = 0
-//y1= 0 y2 = 1 y resultante = y1-y2 = -1
+    if(celda1Y === celda2Y){
+        if ((celda1X === celda2X +1) || (celda1X === celda2X-1)){
+            return true;
+        }
+    }
+    return false
+}
+//MATCH
+
+
+
+
 
 
 /*
@@ -116,40 +113,6 @@ container.style.position = 'relative';
 generarMatriz();
 
 
-//es para leer la matriz, si haces un cambio lo hizo Belen
-// const matrizFinder = () => {
-//     let matriz;
-//     matriz = new Array(matrizSize);
-//     for(let i = 0; i < matrizSize; i++) {
-//         matriz[i] = new Array(matrizSize)
-//     };
-//     for(let i = 0; i < matrizSize; i++) {
-//         for(let j = 0; j < matrizSize; j++) {
-//             matriz[i][j] = document.querySelector(`[data-x="${j}"][data-y="${i}"]`).innerText;
-//         }
-//     }
-//     console.log("+++matriz+++", matriz)
-//     return matriz;
-// }
-//Lo hizo el profe
-// const initialRander = () =>{
-//     createGrid();
-// };
-// window.onload = () =>{
-//     initialRander();
-//     showWelcomeModal();
-// }
-// const fx = async () =>{
-//     for (let y = 0; y < 10; y++){
-//         for(let x = 0; x < 10; x++){
-//             await DelayNode(500);
-//                 console.log(document.querySelectorAll(`[data-x-"${x}"][data-y-"${y}"]`));
-//         }
-//     }
-// }
-
-
-
 
 
 
@@ -157,21 +120,21 @@ generarMatriz();
 ---------- BIENVENIDA ----------
 */
 
-const popUpBienvenida = () =>{
+const modalBienvenida = () =>{
     swal({
         title: "¡Bienvenida!",
         text: "En matcheAdas tu objetivo es juntar tres o mas items del mismo tipo, ya sea en fila o columna. Para eso, selecciona un ítem y a continuación un ítem adyacente para intercambiarlos de lugar.\n \n Si se forma un grupo, esos ítems se eliminaran y ganaras puntos. ¡Sigue armando grupos de tres o más antes de que se acabe el tiempo!.\n \n Controles \n Click izquierdo: selección. \n Enter o espacio: selección.\n Flechas o W A S D: movimiento o intercambio.",
         button: {
             text: "A Jugar", 
         },
-    }).then(popUpNiveles);
+    }).then(modalNiveles);
 }
 
 /*
 ---------- RELOJ ----------
 */
 
-// const alertJuegoTerminado = ()=>{ 
+// const modalJuegoTerminado = ()=>{ 
 //     swal({
 //         title: "¡Juego terminado!",
 //         text: "Puntaje final:\n",
@@ -188,7 +151,7 @@ const popUpBienvenida = () =>{
         
 //     }else {
 //         clearInterval(id);
-//         alertJuegoTerminado();
+//         modalJuegoTerminado();
 //     }
 // }
 // const id = setInterval(mostrarSegundos, 1000);
@@ -198,7 +161,7 @@ const popUpBienvenida = () =>{
 ---------- NIVELES ----------
 */
 
-const popUpNiveles = () =>{
+const modalNiveles = () =>{
 
     swal({
         title: "Nuevo juego",
@@ -248,4 +211,4 @@ const popUpNiveles = () =>{
     // },
     
 
-popUpBienvenida();
+modalBienvenida();
