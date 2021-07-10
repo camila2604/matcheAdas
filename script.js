@@ -66,8 +66,100 @@ const esAdyacente = (celda1, celda2) =>{
 //MATCH
 
 
+const match = ()=>{
+    
+}
+
+const fx = async () =>{
+    for (let y = 0; y < gridSize.length; y++){
+        for(let x = 0; x < gridSize.length; x++){
+            await DelayNode(500);
+                console.log(document.querySelectorAll(`[data-x-"${x}"][data-y-"${y}"]`));
+        }
+    }
+}
 
 
+
+
+
+
+
+
+//es para leer la matriz, si haces un cambio lo hizo Belen
+// const matrizFinder = () => {
+//     let matriz;
+//     matriz = new Array(matrizSize);
+//     for(let i = 0; i < matrizSize; i++) {
+//         matriz[i] = new Array(matrizSize)
+//     };
+//     for(let i = 0; i < matrizSize; i++) {
+//         for(let j = 0; j < matrizSize; j++) {
+//             matriz[i][j] = document.querySelector(`[data-x="${j}"][data-y="${i}"]`).innerText;
+//         }
+//     }
+//     console.log("+++matriz+++", matriz)
+//     return matriz;
+// }
+
+//Lo hizo el profe
+
+// const initialRander = () =>{
+//     createGrid();
+// };
+// window.onload = () =>{
+//     initialRander();
+//     showWelcomeModal();
+// }
+
+
+//---------
+// const fx = async () =>{
+//     for (let y = 0; y < 10; y++){
+//         for(let x = 0; x < 10; x++){
+//             await DelayNode(500);
+//                 console.log(document.querySelectorAll(`[data-x-"${x}"][data-y-"${y}"]`));
+//         }
+//     }
+// }
+
+
+
+
+
+
+//remove
+
+
+// Hay que guardar coordenadas en un array, una vez que estan guardadas las coincidencias se llama a la pocicion de remove, eliminando todas las frutas que tengan coincidencia 
+
+
+const verifyWatchByAxis = async (gridSize, eje) => {
+    for (let i = 0; i < gridSize; i++){
+    const line = document.querySelectorAll(`[data-${eje}="${i}"]`);
+        console.log(line);
+
+        for(j = 0; j < line.length - 2; j++){
+            //console.log(line[j].dataset.icon. line[j + 1].dataset.icon. line[ j + 2].dataset.icon)
+            //await.delay(500);
+            //line[j].style.border = "1px solid #FFF";
+            console.log(line[j].dataset.icon);
+            if(
+                line[j].dataset.icon === line[j+1].dataset.icon && 
+                line[j].dataset.icon === line[j+2].dataset.icon
+            ){
+                const iconstToRemove = line[j].dataset.icon;
+                for ( let k = j; k < gridSize; k++){
+                    if ( line [k].dataset.icon === iconstToRemove){
+                        line[k].remove();
+                    }else{
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
 
 
 /*
