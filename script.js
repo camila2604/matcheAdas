@@ -81,11 +81,6 @@ const fx = async () =>{
 
 
 
-
-
-
-
-
 //es para leer la matriz, si haces un cambio lo hizo Belen
 // const matrizFinder = () => {
 //     let matriz;
@@ -162,6 +157,10 @@ const verifyWatchByAxis = async (gridSize, eje) => {
 }
 
 
+
+
+
+
 /*
 ---------- GRILLA ----------
 */
@@ -190,14 +189,16 @@ const generarMatriz = () =>{
         container.style.height = `${gridSize}px`;
 
         container.appendChild(celda);
-    
-        celda.innerHTML = emojiRandom();
 
-        celda.addEventListener('click', celdaClick);
-        
+        const emoji = emojiRandom();
+
+        celda.dataset.icon = emoji;
+        celda.innerHTML = emoji;
+
+        celda.addEventListener('click', celdaClick);   
     }
     
-    //twemoji.parse(document.body);
+    twemoji.parse(document.body);
     posicionX = posicionX + gridSize / tamMatriz;
 }
 container.style.position = 'relative';
