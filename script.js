@@ -63,70 +63,34 @@ const esAdyacente = (celda1, celda2) =>{
     return false
 }
 
+
 //MATCH
 
 
-//remove
+const buscaMatch =  (eje) =>{
+    for (let i = 0; i < tamMatriz; i++){
+        const dataY = document.querySelectorAll(`[data-${eje}="${i}"]`);
+        for(let j = 0; j < dataY.length-2; j++){
+            console.log(dataY[j]);
 
+            if(dataY[j].dataset.icon === dataY[j+1].dataset.icon && 
+                dataY[j].dataset.icon === dataY[j+2].dataset.icon){
+                
+                const eliminarIconos = dataY[j].dataset.icon;
 
-// Hay que guardar coordenadas en un array, una vez que estan guardadas las coincidencias se llama a la pocicion de remove, eliminando todas las frutas que tengan coincidencia 
-//             //console.log(line[j].dataset.icon. line[j + 1].dataset.icon. line[ j + 2].dataset.icon)
-//             //await.delay(500);
-//             //line[j].style.border = "1px solid #FFF";
-
-
-
-
-
-// const verifyWatchByAxis = async (gridSize, eje) => {
-//     for (let i = 0; i < gridSize; i++){
-//     const line = document.querySelectorAll(`[data-${eje}="${i}"]`);
-//         console.log(line);
-
-//         for(j = 0; j < line.length - 2; j++){
-//             console.log(line[j].dataset.icon);
-
-//             if(
-//                 line[j].dataset.icon === line[j+1].dataset.icon && 
-//                 line[j].dataset.icon === line[j+2].dataset.icon
-//             ){
-//                 const iconstToRemove = line[j].dataset.icon;
-//                 for ( let k = j; k < gridSize; k++){
-//                     if ( line [k].dataset.icon === iconstToRemove){
-//                         line[k].remove();
-//                     }else{
-//                         break;
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
-
-
-const recorreCeldas =  () =>{
-    for (let y = 0; y < tamMatriz; y++){
-        for(let x = 0; x < tamMatriz; x++){
-            let dataXY =  document.querySelector(`[data-x="${x}"][data-y="${y}"]`);
-            console.log(dataXY);
-        
-            if(dataXY[x].dataset.emoji === dataXY[x+1].dataset.emoji && 
-                dataXY[x].dataset.emoji === dataXY[x+2].dataset.emoji){
-                    return true;
-            }
+                for ( let k = j; k < tamMatriz; k++){
+                    if ( dataY [k].dataset.icon === eliminarIconos){
+                        dataY[k].remove();
+                    }else{
+                        break;
+                    }
+                }
+                    dataY[j].style.border="3px solid #fff"
+                }
         }
-        
+    console.log("--------------------------------------------------")
     }
-};
-
-
-
-// const match = (dataXY) =>{
-//     let 
-// }
-
-
-
+}        
 
 
 /*
@@ -169,12 +133,10 @@ const generarMatriz = () =>{
 }
 container.style.position = 'relative';
 
-recorreCeldas();
+buscaMatch("x");
+buscaMatch("y");
 }
-
 generarMatriz();
-
-
 
 
 /*
@@ -271,5 +233,4 @@ const modalNiveles = () =>{
     //     defeat: "Difícil",
     // },
     
-
 modalBienvenida();
