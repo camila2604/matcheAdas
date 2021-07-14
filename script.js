@@ -93,6 +93,67 @@ const buscaMatch =  (eje) =>{
 }        
 
 
+//MOVER FRUTA
+
+const moverFruta = (frutaA, frutaB) =>{
+    const auxLeft =  frutaB.style.left;
+    const autTop = frutaB.style.top;
+    const auxX = frutaB.dataset.x;
+	const auxY = frutaB.dataset.y;
+
+    frutaB.style.left = frutaA.style.left;
+	frutaB.style.top = frutaA.style.top;
+	frutaB.dataset.x = frutaA.dataset.x;
+	frutaB.dataset.y = frutaA.dataset.y;
+
+    let clonedElement1 = frutaA.cloneNode(true);
+	let clonedElement2 = frutaB.cloneNode(true);
+
+
+    Timeout(() => {
+        frutaB.parentNode.replaceChild(clonedElement1, frutaB);
+        frutaA.parentNode.replaceChild(clonedElement2, frutaA);
+    }, 400)
+}
+
+
+
+
+// const switchChips = (chipA, chipB) =>{
+
+// 	const auxLeft = chipB.style.left;
+// 	const autTop = chipB.style.top;
+// 	const auxX = chipB.dataset.x;
+// 	const auxY = chipB.dataset.y;
+
+// 	chipB.style.left = chipA.style.left;
+// 	chipB.style.top = chipA.style.top;
+// 	chipB.dataset.x = chipA.dataset.x;
+// 	chipB.dataset.y = chipA.dataset.y;
+
+// 	chipA.style.left = auxLeft;
+// 	chipA.style.top = auxTop;
+// 	chipA.dataset.x = auxX;
+// 	chipA.dataset.y = auxY;
+
+// 	let clonedElement1 = chipA.cloneNode(true);
+// 	let clonedElement2 = chipB.cloneNode(true);
+
+// 	setTimeout(() => {
+// 		chipB.parentNode.replaceChild(clonedElement1, chipB);
+// 		chipA.parentNode.replaceChild(clonedElement2, chipA);
+// 	}, 400)
+// }
+
+// const delay = ms => new promiset(res => setTimeout(res, ms));
+
+// const verifyMatchByAxis = async (gridSize, eje) =>{
+// 	for(let i = 0; i < girsSize; i++){
+// 		const line = document.querySelectorAll(`[data-${eje}="${i}"]`);
+
+
+
+
 /*
 ---------- GRILLA ----------
 */
