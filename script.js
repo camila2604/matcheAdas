@@ -20,7 +20,6 @@ let viejoClick = null;
 
 let celdaClick = (e) => {
     nuevoClick = e.target;
-    //console.log(e.target.dataset);
 
     if(!viejoClick){
         nuevoClick.classList.add('celda-seleccionada');
@@ -45,7 +44,6 @@ let celdaClick = (e) => {
 /*
 ---------- Verificar si son adyacentes ----------
 */
-
 const esAdyacente = (celda1, celda2) =>{
     
     let celda1X = Number(celda1.dataset.x); 
@@ -66,7 +64,6 @@ const esAdyacente = (celda1, celda2) =>{
     }
     return false
 }
-
 
 /*
 ---------- Hacer match ----------
@@ -93,10 +90,8 @@ const buscaMatch =  (eje) =>{
                     dataY[j].style.border="3px solid #fff"
                 }
         }
-    console.log("--------------------------------------------------")
     }
 }        
-
 
 /*
 ---------- Intercambiar celdas si son adyacentes ----------
@@ -119,18 +114,17 @@ const intercambiarEmojisAdyacentes = (viejoClick, nuevoClick) =>{
 	viejoClick.dataset.x = auxX;
 	viejoClick.dataset.y = auxY;
 
-	// let clonedElement1 = viejoClick.cloneNode(true);
-	// let clonedElement2 = viejoClick.cloneNode(true);
+	//let clonedElement1 = viejoClick.cloneNode(true);
+	//let clonedElement2 = viejoClick.cloneNode(true);
 
 	// setTimeout(() => {
-	// 	nuevoClick.parentNode.replaceChild(clonedElement1, nuevoClick);
-	// 	viejoClick.parentNode.replaceChild(clonedElement2, viejoClick);
+		// nuevoClick.parentNode.replaceChild(clonedElement1, nuevoClick);
+		// viejoClick.parentNode.replaceChild(clonedElement2, viejoClick);
 	// }, 400)
     buscaMatch("x");
     buscaMatch("y");
 }
-
-// const delay = ms => new promiset(res => setTimeout(res, ms));
+//const delay = ms => new promiset(res => setTimeout(res, ms));
 
 
 /*
@@ -189,40 +183,13 @@ const modalBienvenida = () =>{
         text: "En matcheAdas tu objetivo es juntar tres o mas items del mismo tipo, ya sea en fila o columna. Para eso, selecciona un ítem y a continuación un ítem adyacente para intercambiarlos de lugar.\n \n Si se forma un grupo, esos ítems se eliminaran y ganaras puntos. ¡Sigue armando grupos de tres o más antes de que se acabe el tiempo!.\n \n Controles \n Click izquierdo: selección. \n Enter o espacio: selección.\n Flechas o W A S D: movimiento o intercambio.",
         button: {
             text: "A Jugar", 
+            color: 'rgb(255, 82, 111)',
         },
     }).then(modalNiveles);
 }
 
 /*
----------- Temporizador ----------
-*/
-
-const modalJuegoTerminado = ()=>{ 
-    swal({
-        title: "¡Juego terminado!",
-        text: "Puntaje final:\n",
-    buttons: ["Nuevo juego", "Reiniciar"],
-    });
-}
-
-const tiempoDeJuego = 0.25;
-let seg = 30; 
-//let temporizador = document.getElementById("temporizador");
-
-const mostrarSegundos = () => {
-    if (seg >= 0){
-        console.log(seg--);
-        
-    }else {
-        clearInterval(id);
-        modalJuegoTerminado();
-    }
-}
-const id = setInterval(mostrarSegundos, 1000);
-
-
-/*
----------- Modals de niveles de dificultad ----------
+---------- Modal de niveles de dificultad ----------
 */
 
 const modalNiveles = () =>{
@@ -246,23 +213,106 @@ const modalNiveles = () =>{
     }).then((value) => {
         switch(value){
             case "facil":
-                gridSize = 600;
+                gridSize = 500;
                 tamMatriz = 9; 
                 generarMatriz(gridSize, tamMatriz);
                 break;
 
             case "normal":
-                gridSize = 600;
+                gridSize = 500;
                 tamMatriz = 8; 
                 generarMatriz(gridSize, tamMatriz);
                 break;
 
             case "dificil":
-                gridSize = 600;
-                tamMatriz = 7; 
+                gridSize = 500;
+                tamMatriz = 7;
                 generarMatriz(gridSize, tamMatriz);
                 break;
-    }
-})
+        }
+    })
 }
 modalBienvenida();
+
+
+/*
+---------- Boton informacion ----------
+*/
+
+const btnInfo = document.getElementById('btn-info');
+
+const info = () => {
+    swal({
+        title: "¡Bienvenida!",
+        text: "En matcheAdas tu objetivo es juntar tres o mas items del mismo tipo, ya sea en fila o columna. Para eso, selecciona un ítem y a continuación un ítem adyacente para intercambiarlos de lugar.\n \n Si se forma un grupo, esos ítems se eliminaran y ganaras puntos. ¡Sigue armando grupos de tres o más antes de que se acabe el tiempo!.\n \n Controles \n Click izquierdo: selección. \n Enter o espacio: selección.\n Flechas o W A S D: movimiento o intercambio.",
+        button: {
+            text: "A Jugar",
+        }
+    })
+}
+btnInfo.addEventListener('click', info)
+
+
+/*
+---------- Juego nuevo ----------
+*/
+
+const btnRefresh = document.getElementById('btn-refresh');
+const reiniciar = ()=>{ 
+    swal({
+            title: "¿Reiniciar Juego?",
+            text: "¡Perderás el puntaje acumulado!", 
+            buttons: {
+                aceptar: {
+                    text:'Nuevo Juego',
+                    value:'aceptar',
+                },
+                cancelar: {
+                    text:'Cancelar',
+                },
+            }
+        }).then((value) => {
+            if (value === 'aceptar') {
+                modalNiveles();
+            } 
+        });
+}
+btnRefresh.addEventListener('click', reiniciar)
+
+
+
+/*
+---------- TIEMPO ----------
+*/
+
+// const modalJuegoTerminado = ()=>{ 
+//     swal({
+//         title: "¡Juego terminado!",
+//         text: "Puntaje final:",
+//     buttons: {
+//             aceptar: {
+//                 text:'Reiniciar',
+//             },
+//             cancelar: {
+//                 text:'Cancelar',
+//             },
+//         }
+//     });
+// }
+
+// let seg = 30; 
+// //let temporizador = document.getElementById("temporizador");
+// const mostrarSegundos = () => {
+//     if (seg >= 0){
+//         console.log(seg--);
+        
+//     }else {
+//         modalJuegoTerminado();
+//     }then((value) => {
+//         if (value === 'aceptar') {
+//             modalNiveles();
+//             clearInterval();
+//             }
+//     }
+// }
+// setInterval(mostrarSegundos, 100);
