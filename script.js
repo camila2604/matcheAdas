@@ -1,8 +1,8 @@
 const container = document.getElementById('container'); 
 let emoji = ['🍒','🍑','🍇','🍌','🍉','🍍'];
 
-let gridSize = 600;
-let tamMatriz = 9; 
+let gridSize;
+let tamMatriz; 
 
 let posicionX = 0;
 
@@ -12,8 +12,9 @@ const emojiRandom = () =>{
 }
 
 /*
----------- CLICK ----------
+---------- Hacer click en una celda ----------
 */
+
 let nuevoClick = null;
 let viejoClick = null;
 
@@ -31,6 +32,8 @@ let celdaClick = (e) => {
             viejoClick = null;
             }else if (esAdyacente(viejoClick, nuevoClick)){
                 //console.log("son adyacentes");
+                if(intercambiarEmojisAdyacentes(viejoClick,nuevoClick));
+                
             }else{
             nuevoClick.classList.add('celda-seleccionada');
             viejoClick.classList.remove('celda-seleccionada');
@@ -39,13 +42,14 @@ let celdaClick = (e) => {
     }
 } 
 
-//Adyacente
+/*
+---------- Verificar si son adyacentes ----------
+*/
 
 const esAdyacente = (celda1, celda2) =>{
     
     let celda1X = Number(celda1.dataset.x); 
     let celda1Y = Number(celda1.dataset.y);
-
     let celda2X = Number(celda2.dataset.x);
     let celda2Y = Number(celda2.dataset.y);
 
@@ -64,8 +68,9 @@ const esAdyacente = (celda1, celda2) =>{
 }
 
 
-//MATCH
-
+/*
+---------- Hacer match ----------
+*/
 
 const buscaMatch =  (eje) =>{
     for (let i = 0; i < tamMatriz; i++){
@@ -93,72 +98,46 @@ const buscaMatch =  (eje) =>{
 }        
 
 
-//MOVER FRUTA
+/*
+---------- Intercambiar celdas si son adyacentes ----------
+*/
 
-const moverFruta = (frutaA, frutaB) =>{
-    const auxLeft =  frutaB.style.left;
-    const autTop = frutaB.style.top;
-    const auxX = frutaB.dataset.x;
-	const auxY = frutaB.dataset.y;
+const intercambiarEmojisAdyacentes = (viejoClick, nuevoClick) =>{
 
-    frutaB.style.left = frutaA.style.left;
-	frutaB.style.top = frutaA.style.top;
-	frutaB.dataset.x = frutaA.dataset.x;
-	frutaB.dataset.y = frutaA.dataset.y;
+	const auxLeft = nuevoClick.style.left;
+	const auxTop = nuevoClick.style.top;
+	const auxX = nuevoClick.dataset.x;
+	const auxY = nuevoClick.dataset.y;
 
-    let clonedElement1 = frutaA.cloneNode(true);
-	let clonedElement2 = frutaB.cloneNode(true);
+	nuevoClick.style.left = viejoClick.style.left;
+	nuevoClick.style.top = viejoClick.style.top;
+	nuevoClick.dataset.x = viejoClick.dataset.x;
+	nuevoClick.dataset.y = viejoClick.dataset.y;
 
+	viejoClick.style.left = auxLeft;
+	viejoClick.style.top = auxTop;
+	viejoClick.dataset.x = auxX;
+	viejoClick.dataset.y = auxY;
 
-    Timeout(() => {
-        frutaB.parentNode.replaceChild(clonedElement1, frutaB);
-        frutaA.parentNode.replaceChild(clonedElement2, frutaA);
-    }, 400)
+	// let clonedElement1 = viejoClick.cloneNode(true);
+	// let clonedElement2 = viejoClick.cloneNode(true);
+
+	// setTimeout(() => {
+	// 	nuevoClick.parentNode.replaceChild(clonedElement1, nuevoClick);
+	// 	viejoClick.parentNode.replaceChild(clonedElement2, viejoClick);
+	// }, 400)
+    buscaMatch("x");
+    buscaMatch("y");
 }
 
-
-
-
-// const switchChips = (chipA, chipB) =>{
-
-// 	const auxLeft = chipB.style.left;
-// 	const autTop = chipB.style.top;
-// 	const auxX = chipB.dataset.x;
-// 	const auxY = chipB.dataset.y;
-
-// 	chipB.style.left = chipA.style.left;
-// 	chipB.style.top = chipA.style.top;
-// 	chipB.dataset.x = chipA.dataset.x;
-// 	chipB.dataset.y = chipA.dataset.y;
-
-// 	chipA.style.left = auxLeft;
-// 	chipA.style.top = auxTop;
-// 	chipA.dataset.x = auxX;
-// 	chipA.dataset.y = auxY;
-
-// 	let clonedElement1 = chipA.cloneNode(true);
-// 	let clonedElement2 = chipB.cloneNode(true);
-
-// 	setTimeout(() => {
-// 		chipB.parentNode.replaceChild(clonedElement1, chipB);
-// 		chipA.parentNode.replaceChild(clonedElement2, chipA);
-// 	}, 400)
-// }
-
 // const delay = ms => new promiset(res => setTimeout(res, ms));
-
-// const verifyMatchByAxis = async (gridSize, eje) =>{
-// 	for(let i = 0; i < girsSize; i++){
-// 		const line = document.querySelectorAll(`[data-${eje}="${i}"]`);
-
-
 
 
 /*
 ---------- GRILLA ----------
 */
 
-const generarMatriz = () =>{
+const generarMatriz = (gridSize, tamMatriz) =>{
     for (let i = 0; i < tamMatriz; i++){
         let posicionY = 0;
 
@@ -201,7 +180,7 @@ generarMatriz();
 
 
 /*
----------- BIENVENIDA ----------
+---------- Modal de bienvenida ----------
 */
 
 const modalBienvenida = () =>{
@@ -215,38 +194,38 @@ const modalBienvenida = () =>{
 }
 
 /*
----------- RELOJ ----------
+---------- Temporizador ----------
 */
 
-// const modalJuegoTerminado = ()=>{ 
-//     swal({
-//         title: "¡Juego terminado!",
-//         text: "Puntaje final:\n",
-//     buttons: ["Nuevo juego", "Reiniciar"],
-//     });
-// }
-// const tiempoDeJuego = 0.25;
-// let seg = 30; 
+const modalJuegoTerminado = ()=>{ 
+    swal({
+        title: "¡Juego terminado!",
+        text: "Puntaje final:\n",
+    buttons: ["Nuevo juego", "Reiniciar"],
+    });
+}
 
-// const mostrarSegundos = () => {
-//     console.log("comienzo")
-//     if (seg >= 0){
-//         console.log(seg--);
+const tiempoDeJuego = 0.25;
+let seg = 30; 
+//let temporizador = document.getElementById("temporizador");
+
+const mostrarSegundos = () => {
+    if (seg >= 0){
+        console.log(seg--);
         
-//     }else {
-//         clearInterval(id);
-//         modalJuegoTerminado();
-//     }
-// }
-// const id = setInterval(mostrarSegundos, 1000);
+    }else {
+        clearInterval(id);
+        modalJuegoTerminado();
+    }
+}
+const id = setInterval(mostrarSegundos, 1000);
 
 
 /*
----------- NIVELES ----------
+---------- Modals de niveles de dificultad ----------
 */
 
 const modalNiveles = () =>{
-
     swal({
         title: "Nuevo juego",
         text:"Selecciona una dificultad",
@@ -267,31 +246,23 @@ const modalNiveles = () =>{
     }).then((value) => {
         switch(value){
             case "facil":
-                let tamCelda =  56;
-                let tamMatriz = 9; 
-                generarMatriz();
+                gridSize = 600;
+                tamMatriz = 9; 
+                generarMatriz(gridSize, tamMatriz);
                 break;
-//             case "normal":
-//                  const tamCelda =  63;
-//                  const tamMatriz = 8; 
-//                  generarMatriz();
-//                  break;
-//                    case "dificl":
-// //                 const tamCelda =  72;
-// //                 const tamMatriz = 7; 
-// //                 generarMatriz();
-// //                 break;
+
+            case "normal":
+                gridSize = 600;
+                tamMatriz = 8; 
+                generarMatriz(gridSize, tamMatriz);
+                break;
+
+            case "dificil":
+                gridSize = 600;
+                tamMatriz = 7; 
+                generarMatriz(gridSize, tamMatriz);
+                break;
     }
 })
 }
-    //     title:"Nuevo juego", 
-    //     text:"Selecciona una dificultad.",
-    //     buttons: {
-    //     cancel: "Facil",
-    //     catch: {
-    //     text: "Normal",
-    // },
-    //     defeat: "Difícil",
-    // },
-    
 modalBienvenida();

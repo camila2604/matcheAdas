@@ -73,11 +73,13 @@ h1{
     border-radius: 5px;
 }
 
-/* 
-button{
-    background-color:rgb(255, 82, 111);
+.swal-text {
+    text-align: center;
 }
-.buttons:hover{
+.swal-button{
+    background-color: rgb(255, 82, 111);
+}
+/* .swal-button :hover{
     transition-duration:0.1s;
     background-color:rgb(150, 52, 69);
 } */
