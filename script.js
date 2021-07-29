@@ -1,5 +1,5 @@
 const container = document.getElementById('container'); 
-let emoji = ['🍒','🍑','🍇','🍌','🍉','🍍'];
+let emoji = ['🍒','🥥','🍇','🍌','🍉','🍍'];
 
 let gridSize;
 let tamMatriz; 
@@ -30,8 +30,7 @@ let celdaClick = (e) => {
             nuevoClick.classList.remove('celda-seleccionada');
             viejoClick = null;
             }else if (esAdyacente(viejoClick, nuevoClick)){
-                //console.log("son adyacentes");
-                if(intercambiarEmojisAdyacentes(viejoClick,nuevoClick));
+                if(intercambiarAdyacentes(viejoClick,nuevoClick));
                 
             }else{
             nuevoClick.classList.add('celda-seleccionada');
@@ -70,8 +69,9 @@ const esAdyacente = (celda1, celda2) =>{
 */
 
 const buscaMatch =  (eje) =>{
+
     for (let i = 0; i < tamMatriz; i++){
-        const dataY = document.querySelectorAll(`[data-${eje}="${i}"]`);
+        const dataY = [] = document.querySelectorAll(`[data-${eje}="${i}"]`);
         for(let j = 0; j < dataY.length-2; j++){
             console.log(dataY[j]);
 
@@ -93,11 +93,12 @@ const buscaMatch =  (eje) =>{
     }
 }        
 
+
 /*
 ---------- Intercambiar celdas si son adyacentes ----------
 */
 
-const intercambiarEmojisAdyacentes = (viejoClick, nuevoClick) =>{
+const intercambiarAdyacentes = (viejoClick, nuevoClick) =>{
 
 	const auxLeft = nuevoClick.style.left;
 	const auxTop = nuevoClick.style.top;
@@ -114,17 +115,12 @@ const intercambiarEmojisAdyacentes = (viejoClick, nuevoClick) =>{
 	viejoClick.dataset.x = auxX;
 	viejoClick.dataset.y = auxY;
 
-	//let clonedElement1 = viejoClick.cloneNode(true);
-	//let clonedElement2 = viejoClick.cloneNode(true);
-
-	// setTimeout(() => {
-		// nuevoClick.parentNode.replaceChild(clonedElement1, nuevoClick);
-		// viejoClick.parentNode.replaceChild(clonedElement2, viejoClick);
-	// }, 400)
-    buscaMatch("x");
+    buscaMatch("x");    
     buscaMatch("y");
+    rellena()
+
 }
-//const delay = ms => new promiset(res => setTimeout(res, ms));
+
 
 
 /*
@@ -143,6 +139,8 @@ const generarMatriz = (gridSize, tamMatriz) =>{
         celda.style.left = `${posicionX}px`;
         celda.style.top = `${posicionY}px`;
         celda.style.padding = '8px';
+
+        //celda.classList.add("celda");
 
         celda.dataset.x = i;
         celda.dataset.y = j;
@@ -169,8 +167,62 @@ container.style.position = 'relative';
 
 buscaMatch("x");
 buscaMatch("y");
+
 }
 generarMatriz();
+
+
+
+/*
+----------RELLENA----------
+*/ 
+
+
+
+const rellena = () => {
+
+    let celdasRellenas = document.getElementsByClassName('celda');
+
+    const emoji2 = emojiRandom();
+    for(let i=0; i< celdasRellenas.length; i++) {
+    
+        if(celdasRellenas[i].innerText==="") {
+
+            celdasRellenas[i].innerText=emoji2
+
+        
+        }
+    }
+};
+rellena()
+
+
+
+
+/*
+----------DESCIENDE----------
+// */
+
+const desciende = () =>{
+    for(let x = tamMatriz-1; x >=0; x--) {
+        for(let y = tamMatriz-1; y >=1 ; y--) {
+            const iconos = document.querySelector(`[dataset-y="${y}"][dataset-x="${x}"]`)
+            if(iconos.innerText==="") {
+                let celdaVacia=iconos
+                for(let w = y; w > 0; w--){
+                    const celdaSuperior = document.querySelector(`[data-y="${w-1}"][data-x="${x}"]`)
+                    if(celdaSuperior.innerHTML !== ""){
+                        intercambiarAdyacentes(celdaVacia, celdaSuperior)
+                        break;
+                    }
+                }
+            }        
+        }
+    }
+}
+desciende();
+
+
 
 
 /*
@@ -285,34 +337,32 @@ btnRefresh.addEventListener('click', reiniciar)
 ---------- TIEMPO ----------
 */
 
-// const modalJuegoTerminado = ()=>{ 
-//     swal({
-//         title: "¡Juego terminado!",
-//         text: "Puntaje final:",
-//     buttons: {
-//             aceptar: {
-//                 text:'Reiniciar',
-//             },
-//             cancelar: {
-//                 text:'Cancelar',
-//             },
-//         }
-//     });
-// }
 
-// let seg = 30; 
-// //let temporizador = document.getElementById("temporizador");
-// const mostrarSegundos = () => {
-//     if (seg >= 0){
-//         console.log(seg--);
-        
-//     }else {
-//         modalJuegoTerminado();
-//     }then((value) => {
-//         if (value === 'aceptar') {
-//             modalNiveles();
-//             clearInterval();
-//             }
-//     }
-// }
-// setInterval(mostrarSegundos, 100);
+const modalJuegoTerminado = ()=>{ 
+    swal({
+        title: "¡Juego terminado!",
+        text: "Puntaje final:",
+    buttons: {
+            aceptar: {
+                text:'Reiniciar',
+            },
+            cancelar: {
+                text:'Cancelar',
+            },
+        }
+    });
+}
+
+
+const tiempoDelJuego = 0.25;
+let seg = 30;
+
+const mostrarSegundos = () => {
+    if (seg >= 0){
+        console.log(seg--);
+    }else {
+        clearInterval(id);
+        modalJuegoTerminado();
+        }
+}
+let id = setInterval(mostrarSegundos, 1000);
